@@ -121,7 +121,7 @@ sua_2_fbs_fdm <- function(com_sua_cod){
   
   if(com_sua_cod %in% c(as.character(388:392),'403', '358','366','367','372','373','378','393','401',
                         '402','406','407','414','417','420','423','426','430',as.character(446:451),
-                        '459','461',as.character(463:466),'469',as.character(471:476),'658','475','476','658')){
+                        '459','461',as.character(463:466),'469',as.character(471:476),'658')){
     
     return(c(foodFdm = 21, foodCommodityM = 2918))
   }
