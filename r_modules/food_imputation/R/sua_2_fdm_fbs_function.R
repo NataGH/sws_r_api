@@ -112,7 +112,7 @@ sua_2_fbs_fdm <- function(com_sua_cod){
     return(c(foodFdm = 20, foodCommodityM = 2913))
   }
   
-  if(com_sua_cod %in% c('237','44','268','271','293','331','258','257','1276','1277','252','290','261',
+  if(com_sua_cod %in% c('237','244','268','271','293','331','258','257','1276','1277','252','290','261',
                         '274','36','60','264','266','276','278','281','297','306','307','313','334','337',
                         '340','664','1241','1242',as.character(1273:1275))){
     
@@ -184,7 +184,7 @@ sua_2_fbs_fdm <- function(com_sua_cod){
     return(c(foodFdm = 48, foodCommodityM = 2656))
   }
 
-  if(com_sua_cod %in% c('26','29','66','82','86','517','634')){
+  if(com_sua_cod %in% c('26','39','66','82','86','517','634')){
     
     return(c(foodFdm = 49, foodCommodityM = 3004))
   }
@@ -253,7 +253,7 @@ sua_2_fbs_fdm <- function(com_sua_cod){
 
   if(com_sua_cod %in% c('1182 ')){
     
-    return(c(foodFdm = 17, foodCommodityM = 2745))
+    return(c(foodFdm = 17, foodCommodityM = 3006))
   }
   
   if(com_sua_cod %in% c(as.character(1501:1508),as.character(1514:1521),as.character(1527:1534),as.character(1540:1547))){
@@ -271,7 +271,7 @@ sua_2_fbs_fdm <- function(com_sua_cod){
     return(c(foodFdm = 36, foodCommodityM = 3003))
   }
   
-  if(com_sua_cod %in% c('1509','1522','1535','1548','1582','1510','1536','1549')){
+  if(com_sua_cod %in% c('1509','1522','1535','1548','1582','1510','1523','1536','1549')){
     
     return(c(foodFdm = 41, foodCommodityM = 2737))
   }
