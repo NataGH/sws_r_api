@@ -81,7 +81,28 @@ seedLmeModel =
          (log(Value_measuredElement_5025)|cpcLvl3/measuredItemCPC:geographicAreaM49),
          data = seedModelData)
 
-seedLmeVariance = bootMer(seedLmeModel)
+
+# http://rstudio-pubs-static.s3.amazonaws.com/24365_2803ab8299934e888a60e7b16113f619.html
+
+# we want predictions for all values of Value_measuredElement_5025 (Area Sown (ha)).
+# If we call "predict" without a data argument, it will predict for all X values used
+# when fitting the model.
+# Set re.form=NA to output only predictions using the fixed effects.
+
+seedLmeVariance = bootMer(seedLmeModel,FUN=function(seedLmeModel)predict(seedLmeModel,re.form=NULL),nsim=100) #nsim=?
+
+# the $t element contains the predictions output by bootMer
+
+# Take quantiles of predictions from bootstrap replicates.
+# These represent the confidence interval of the mean at any value of 
+# Value_measuredElement_5025 (Area Sown (ha))
+lci = apply(seedLmeVariance$t,2,quantile,0.025)
+uci = apply(seedLmeVariance$t,2,quantile,0.975)
+std = apply(seedLmeVariance$t,2,sd)
+
+# I not able to run this function:
+# Error in GetData.validate(key, flags, normalized, metadata, pivoting) : 
+#  pivoting must contain all the same elements as dimensions (specified in key), and no more.
 
 selectedSeed =
     getSelectedSeedData(swsContext.datasets[[1]]) %>%
@@ -92,6 +113,8 @@ selectedSeed =
 
 selectedSeed[, predicted :=
                  exp(predict(seedLmeModel, selectedSeed, allow.new.levels = TRUE))]
+# to add lci and uci or std in selectedSeed dataset
+
 
 with(selectedSeed, plot(Value_measuredElement_5525, predicted))
 
