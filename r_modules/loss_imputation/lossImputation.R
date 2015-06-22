@@ -396,6 +396,7 @@ imputeLoss = function(data, lossVar, lossObservationFlagVar, lossMethodFlagVar,
     imputedData = copy(data)
     imputedData[, predicted := exp(predict(lossModel, newdata = imputedData,
                                 allow.new.levels = TRUE))]
+    # to add lci and uci or std
     imputedData[(is.na(imputedData[[lossVar]]) |
                  imputedData[[lossObservationFlagVar]] %in% c("E", "I", "T")) &
                 !is.na(predicted),
@@ -503,7 +504,22 @@ if(updateModel){
 }
 
 
+# we want predictions for all values of Value_measuredElement_5510.
+# If we call "predict" without a data argument, it will predict for all X values used
+# when fitting the model.
+# Set re.form=NA to output only predictions using the fixed effects.
+lossLmeVariance = bootMer(lossLmeModel,FUN=function(lossLmeModel)predict(lossLmeModel,re.form=NULL),nsim=10)
 
+
+# the $t element contains the predictions output by bootMer
+
+# Take quantiles of predictions from bootstrap replicates.
+# These represent the confidence interval of the mean at any value of 
+# Value_measuredElement_5025 (Area Sown (ha))
+lci = apply(lossLmeVariance$t,2,quantile,0.025)
+uci = apply(lossLmeVariance$t,2,quantile,0.975)
+std = apply(lossLmeVariance$t,2,sd)
+#predicted = predict(lossLmeModel,,re.form=NULL)
 
 
 finalPredictData = 
